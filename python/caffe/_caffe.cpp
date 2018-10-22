@@ -492,7 +492,9 @@ BOOST_PYTHON_MODULE(_caffe) {
     .add_property("display", &SolverParameter::display)
     .add_property("layer_wise_reduce", &SolverParameter::layer_wise_reduce)
     .add_property("base_lr", &SolverParameter::base_lr,
-           &SolverParameter::set_base_lr);
+           &SolverParameter::set_base_lr)
+    .add_property("max_lr",&SolverParameter::max_lr,
+                      &SolverParameter::set_max_lr);
   bp::class_<LayerParameter>("LayerParameter", bp::no_init);
 
   bp::class_<Solver<Dtype>, shared_ptr<Solver<Dtype> >, boost::noncopyable>(
@@ -518,6 +520,7 @@ BOOST_PYTHON_MODULE(_caffe) {
     shared_ptr<SGDSolver<Dtype> >, boost::noncopyable>(
         "SGDSolver", bp::init<string>())
         .add_property("lr", &SGDSolver<Dtype>::GetLearningRate);
+
   bp::class_<NesterovSolver<Dtype>, bp::bases<SGDSolver<Dtype> >,
     shared_ptr<NesterovSolver<Dtype> >, boost::noncopyable>(
         "NesterovSolver", bp::init<string>());
